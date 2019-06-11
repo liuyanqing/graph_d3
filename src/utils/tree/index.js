@@ -154,7 +154,6 @@ const drawDraph = (target, opt = {}) => {
     updateLinks(animatedStartX, animatedStartY, animatedEndX, animatedEndY);
 
     addColorKey();
-    bindNodeToTreeData();
   }
 
   function updateNodes(
@@ -314,12 +313,6 @@ const drawDraph = (target, opt = {}) => {
 
     linkSelection
       .attr('class', 'pLink')
-      .attr('sourceX', linkData => linkData.source.x0)
-      .attr('sourceY', linkData => -linkData.source.y0)
-      .attr('targetX', linkData => linkData.target.x0)
-      .attr('targetY', linkData => -linkData.target.y0)
-      .transition()
-      .duration(config.duration)
       .attr('sourceX', linkData => linkData.source.x)
       .attr('sourceY', linkData => -linkData.source.y)
       .attr('targetX', linkData => linkData.target.x)
@@ -350,7 +343,7 @@ const drawDraph = (target, opt = {}) => {
       .attr('targetY', -animatedEndY)
       .remove();
 
-    // record the initial coordinates of the animation
+    // record the initial coordinates
     treeLinks.forEach(treeNode => {
       treeNode.source.x00 = treeNode.source.x;
       treeNode.source.y00 = treeNode.source.y;
@@ -371,15 +364,6 @@ const drawDraph = (target, opt = {}) => {
       node.attr('colorKey', newColor);
       node.data()[0].colorKey = newColor;
       colorNodeMap[newColor] = node;
-    });
-  }
-
-  function bindNodeToTreeData() {
-    // give each node a unique color
-    virtualContainerNode.selectAll('.node, .pNode').each(function() {
-      const node = d3.select(this);
-      const d = node.data()[0] || {};
-      d.node = node;
     });
   }
 
@@ -657,7 +641,7 @@ const drawDraph = (target, opt = {}) => {
   }
 
   function collapse(d) {
-    if (d.children) {
+    if (d.children && d.children.length) {
       d._children = d.children;
       d._children.forEach(collapse);
       d.children = null;
