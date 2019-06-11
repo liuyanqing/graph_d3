@@ -136,41 +136,22 @@ const drawDraph = (target, opt = {}) => {
       animatedStartY = targetTreeNode.y0;
       animatedEndX = targetTreeNode.x;
       animatedEndY = targetTreeNode.y;
-
-      if (targetTreeNode.data.category) {
-        updateParentNodes(
-          animatedStartX,
-          animatedStartY,
-          animatedEndX,
-          animatedEndY
-        );
-        updateParentLinks(
-          animatedStartX,
-          animatedStartY,
-          animatedEndX,
-          animatedEndY
-        );
-      } else {
-        updateNodes(animatedStartX, animatedStartY, animatedEndX, animatedEndY);
-        updateLinks(animatedStartX, animatedStartY, animatedEndX, animatedEndY);
-      }
-    } else {
-      updateParentNodes(
-        animatedStartX,
-        animatedStartY,
-        animatedEndX,
-        animatedEndY
-      );
-      updateParentLinks(
-        animatedStartX,
-        animatedStartY,
-        animatedEndX,
-        animatedEndY
-      );
-
-      updateNodes(animatedStartX, animatedStartY, animatedEndX, animatedEndY);
-      updateLinks(animatedStartX, animatedStartY, animatedEndX, animatedEndY);
     }
+    updateParentNodes(
+      animatedStartX,
+      animatedStartY,
+      animatedEndX,
+      animatedEndY
+    );
+    updateParentLinks(
+      animatedStartX,
+      animatedStartY,
+      animatedEndX,
+      animatedEndY
+    );
+
+    updateNodes(animatedStartX, animatedStartY, animatedEndX, animatedEndY);
+    updateLinks(animatedStartX, animatedStartY, animatedEndX, animatedEndY);
 
     addColorKey();
     bindNodeToTreeData();
@@ -185,18 +166,14 @@ const drawDraph = (target, opt = {}) => {
     const treeNodes = treeData.descendants();
     let nodeSelection = virtualContainerNode
       .selectAll('.node')
-      .data(treeNodes, d => d.colorKey);
+      .data(treeNodes, d => d.data.name);
 
     nodeSelection
       .attr('class', 'node')
-      .attr('x', d => d.x0)
-      .attr('y', d => d.y0)
-      .transition()
-      .duration(config.duration)
       .attr('x', d => d.x)
       .attr('y', d => d.y);
 
-    // data don't bind to element
+    // add data that doesn't bind to element
     nodeSelection
       .enter()
       .append('node')
@@ -208,7 +185,7 @@ const drawDraph = (target, opt = {}) => {
       .attr('x', d => d.x)
       .attr('y', d => d.y);
 
-    // element don't bind to data
+    // delete element that doesn't bind to data
     nodeSelection
       .exit()
       .transition()
@@ -235,14 +212,14 @@ const drawDraph = (target, opt = {}) => {
     const treeLinks = treeData.links();
     let linkSelection = virtualContainerNode
       .selectAll('.link')
-      .data(treeLinks, d => `${d.source.colorKey}:${d.target.colorKey}`);
+      .data(treeLinks, d => `${d.source.data.name}:${d.target.data.name}`);
 
     linkSelection
       .attr('class', 'link')
-      .attr('sourceX', linkData => linkData.source.x00)
-      .attr('sourceY', linkData => linkData.source.y00)
-      .attr('targetX', linkData => linkData.target.x00)
-      .attr('targetY', linkData => linkData.target.y00)
+      .attr('sourceX', linkData => linkData.source.x0)
+      .attr('sourceY', linkData => linkData.source.y0)
+      .attr('targetX', linkData => linkData.target.x0)
+      .attr('targetY', linkData => linkData.target.y0)
       .transition()
       .duration(config.duration)
       .attr('sourceX', linkData => linkData.source.x)
@@ -294,18 +271,14 @@ const drawDraph = (target, opt = {}) => {
     const treeNodes = treeParent.descendants();
     let nodeSelection = virtualContainerNode
       .selectAll('.pNode')
-      .data(treeNodes, d => d.colorKey);
+      .data(treeNodes, d => d.data.name);
 
     nodeSelection
       .attr('class', 'pNode')
-      .attr('x', d => d.x0)
-      .attr('y', d => -d.y0)
-      .transition()
-      .duration(config.duration)
       .attr('x', d => d.x)
       .attr('y', d => -d.y);
 
-    // data don't bind to element
+    // add data that doesn't bind to element
     nodeSelection
       .enter()
       .append('node')
@@ -325,7 +298,7 @@ const drawDraph = (target, opt = {}) => {
       .attr('y', -animatedEndY)
       .remove();
 
-    // record origin index for animation
+    // record the initial coordinates of the animation
     treeNodes.forEach(treeNode => {
       treeNode.x0 = treeNode.x;
       treeNode.y0 = treeNode.y;
@@ -343,14 +316,14 @@ const drawDraph = (target, opt = {}) => {
     const treeLinks = treeParent.links();
     let linkSelection = virtualContainerNode
       .selectAll('.pLink')
-      .data(treeLinks, d => `${d.source.colorKey}:${d.target.colorKey}`);
+      .data(treeLinks, d => `${d.source.data.name}:${d.target.data.name}`);
 
     linkSelection
       .attr('class', 'pLink')
-      .attr('sourceX', linkData => linkData.source.x00)
-      .attr('sourceY', linkData => -linkData.source.y00)
-      .attr('targetX', linkData => linkData.target.x00)
-      .attr('targetY', linkData => -linkData.target.y00)
+      .attr('sourceX', linkData => linkData.source.x0)
+      .attr('sourceY', linkData => -linkData.source.y0)
+      .attr('targetX', linkData => linkData.target.x0)
+      .attr('targetY', linkData => -linkData.target.y0)
       .transition()
       .duration(config.duration)
       .attr('sourceX', linkData => linkData.source.x)
@@ -383,7 +356,7 @@ const drawDraph = (target, opt = {}) => {
       .attr('targetY', -animatedEndY)
       .remove();
 
-    // record origin data for animation
+    // record the initial coordinates of the animation
     treeLinks.forEach(treeNode => {
       treeNode.source.x00 = treeNode.source.x;
       treeNode.source.y00 = treeNode.source.y;
@@ -487,7 +460,6 @@ const drawDraph = (target, opt = {}) => {
       );
     });
 
-    /* eslint-disable complexity */
     virtualContainerNode.selectAll('.node, .pNode').each(function() {
       const node = d3.select(this);
       const treeNode = node.data()[0];

@@ -20,7 +20,7 @@ const drawDraph = (target, opt = {}) => {
         .zoom()
         .scaleExtent([0.5, 8])
         .on('zoom', zoom)
-    );
+    ).on('dblclick.zoom', null);
   // setting config
   const config = {
     width: opt.width || target.width,

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>This is an Graph demo</h1>
+    <h1>This is a Graph demo</h1>
     <div class="relative">
       <canvas id="canvas" class="canvas"/>
       <div id="tooltip" class="tooltip"/>

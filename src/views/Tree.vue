@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>This is an Tree demo</h1>
+    <h1>This is a Tree demo</h1>
     <div class="relative">
       <div id="canvas" class="canvas"/>
       <div id="tooltip" class="tooltip"/>
@@ -20,35 +20,37 @@ export default {
         parents: [
           {
             subConAmt: "12616.88万元",
-            category: "2", // 1 是公司，2是个人
-            count: 4,
-            grade: "1",
+            category: "1", // 1 是公司，2是个人
             fundedRatio: "74.49%",
-            name: "郄茂金",
-            isAbsoluteController: "True", // yes - 'True', no - 'False'
-            operName: "刘强东"
+            name: "公司名字",
+            isAbsoluteController: "False", // 实际控制人：yes - 'True', no - 'False'
+            children: [
+              {
+                subConAmt: "12616.88万元",
+                category: "2",
+                fundedRatio: "74.49%",
+                name: "佚名",
+                isAbsoluteController: "True"
+              }
+            ]
           }
         ],
         children: [
           {
-            shouldCapi: "40万元",
+            shouldCapi: "40万元", // 认缴金额
             name: "中美恩特（北京）能源科技有限公司",
             capitalType: "货币",
             stockPercent: "66.67%",
-            totalStockPercent: "66.67",
-            source: 2,
+            totalStockPercent: "66.67%",
             type: 2,
             children: [
               {
-                shouldCapi: "-",
-                brand: "北京农商银行手机银行",
-                hasNode: true,
+                shouldCapi: "300万元",
                 name: "北京农村商业银行股份有限公司",
                 stockPercent: "-",
-                totalStockPercent: "0.0",
-                source: 17,
+                totalStockPercent: "66.67%",
                 type: 2,
-                children: []
+                children: null
               }
             ]
           }

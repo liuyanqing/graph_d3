@@ -4,6 +4,9 @@
 
 ## Start Setup
 
+    # install @vue/cli
+    npm install -g @vue/cli
+
     # install dependencies
     npm install
 
