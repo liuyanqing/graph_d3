@@ -216,12 +216,6 @@ const drawDraph = (target, opt = {}) => {
 
     linkSelection
       .attr('class', 'link')
-      .attr('sourceX', linkData => linkData.source.x0)
-      .attr('sourceY', linkData => linkData.source.y0)
-      .attr('targetX', linkData => linkData.target.x0)
-      .attr('targetY', linkData => linkData.target.y0)
-      .transition()
-      .duration(config.duration)
       .attr('sourceX', linkData => linkData.source.x)
       .attr('sourceY', linkData => linkData.source.y)
       .attr('targetX', linkData => linkData.target.x)

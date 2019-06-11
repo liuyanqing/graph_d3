@@ -22,7 +22,7 @@ export default {
             subConAmt: "12616.88万元",
             category: "1", // 1 是公司，2是个人
             fundedRatio: "74.49%",
-            name: "公司名字",
+            name: "公司名字", // 公司名称（使用name属性作为树状图节点的id，该属性需要唯一）
             isAbsoluteController: "False", // 实际控制人：yes - 'True', no - 'False'
             children: [
               {
@@ -70,7 +70,7 @@ export default {
       }
       const option = {
         width: 1100,
-        height: 600,
+        height: 700,
         data
       };
       drawGraph(canvas, option);
@@ -86,22 +86,10 @@ export default {
 
 .canvas {
   width: 1100px;
-  height: 600px;
+  height: 700px;
   margin: 0 auto;
   overflow: hidden;
   background: #fafafa;
-
-  > canvas {
-    width: 1100px;
-    height: 600px;
-    margin: 0;
-  }
-}
-
-canvas {
-  width: 1100px;
-  height: 600px;
-  margin: 0;
 }
 
 .tooltip {
