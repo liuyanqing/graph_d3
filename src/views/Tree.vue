@@ -21,14 +21,14 @@ export default {
           {
             subConAmt: "12616.88万元",
             category: "1", // 1 是公司，2是个人
-            fundedRatio: "74.49%",
+            fundedRatio: "66.00%",
             name: "公司名字", // 公司名称（使用name属性作为树状图节点的id，该属性需要唯一）
             isAbsoluteController: "False", // 实际控制人：yes - 'True', no - 'False'
             children: [
               {
                 subConAmt: "12616.88万元",
                 category: "2",
-                fundedRatio: "74.49%",
+                fundedRatio: "22.00%",
                 name: "佚名",
                 isAbsoluteController: "True"
               }
@@ -39,20 +39,24 @@ export default {
           {
             shouldCapi: "40万元", // 认缴金额
             name: "中美恩特（北京）能源科技有限公司",
-            capitalType: "货币",
-            stockPercent: "66.67%",
             totalStockPercent: "66.67%",
             type: 2,
             children: [
               {
                 shouldCapi: "300万元",
                 name: "北京农村商业银行股份有限公司",
-                stockPercent: "-",
                 totalStockPercent: "66.67%",
                 type: 2,
                 children: null
               }
             ]
+          },
+          {
+            shouldCapi: "1000万元", // 认缴金额
+            name: "A有限公司",
+            totalStockPercent: "16.67%",
+            type: 2,
+            children: null
           }
         ]
       }

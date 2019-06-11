@@ -5,7 +5,7 @@
 ## 目录
 
 1. 关系图
-   ![关系图是这样](./public/images/force.jpg)
+   ![关系图长这样](./public/images/force.jpg)
 2. 树状图（样式和数据结构参照天眼查）
    ![树状图长这样](./public/images/tree.jpg)
 
