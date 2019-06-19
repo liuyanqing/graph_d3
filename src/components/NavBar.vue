@@ -6,6 +6,9 @@
     <li>
       <router-link to="/tree">树状图</router-link>
     </li>
+    <li>
+      <router-link to="/map">树状图</router-link>
+    </li>
   </ul>
 </template>
 
@@ -16,5 +19,3 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
