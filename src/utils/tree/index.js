@@ -14,6 +14,8 @@ import {
   drawTip,
 } from './draw';
 
+const ratio = getPixelRatio();
+
 const initCanvas = (target, config) => {
   const { width, height } = config;
   const base = d3.select(target);
@@ -24,14 +26,14 @@ const initCanvas = (target, config) => {
   const ctx = canvas.node().getContext('2d');
   const hideCtx = hideCanvas.node().getContext('2d');
 
-  const ratio = getPixelRatio(ctx);
   canvas.property('width', width * ratio);
   canvas.property('height', height * ratio);
   ctx.scale(ratio, ratio);
-  const ratio2 = getPixelRatio(hideCtx);
-  hideCanvas.property('width', width * ratio2);
-  hideCanvas.property('height', height * ratio2);
-  hideCtx.scale(ratio2, ratio2);
+
+  hideCanvas.property('width', width * ratio);
+  hideCanvas.property('height', height * ratio);
+  hideCtx.scale(ratio, ratio);
+
   return { base, canvas, hideCanvas, ctx, hideCtx };
 };
 
@@ -597,7 +599,11 @@ const drawDraph = (target, opt = {}) => {
   function clicked() {
     const point = d3.mouse(this);
     // 画布增大了两倍
-    const colorStr = getColorStrFromCanvas(hideCtx, point[0] * 2, point[1] * 2);
+    const colorStr = getColorStrFromCanvas(
+      hideCtx,
+      point[0] * ratio,
+      point[1] * ratio
+    );
     const node = colorNodeMap[colorStr];
     if (node) {
       toggleTreeNode(node.data()[0]);
@@ -612,7 +618,11 @@ const drawDraph = (target, opt = {}) => {
   function mousemoved() {
     const { width, height } = config;
     const point = d3.mouse(this);
-    const colorStr = getColorStrFromCanvas(hideCtx, point[0] * 2, point[1] * 2);
+    const colorStr = getColorStrFromCanvas(
+      hideCtx,
+      point[0] * ratio,
+      point[1] * ratio
+    );
     const node = colorNodeMap[colorStr];
     if (node && node.data()[0].parent) {
       const nodeData = node.data()[0].data;
